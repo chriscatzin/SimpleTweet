@@ -18,6 +18,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,11 @@ public class TimelineActivity extends AppCompatActivity {
         // REQUEST_CODE is defined above
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             // Pull info out of the data Intent (Tweet)
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             // Update the recycler view with this tweet
+            tweets.add(0, tweet);
+            adapter.notifyItemInserted(0);
+            rvTweets.smoothScrollToPosition(0);
         }
     }
 
